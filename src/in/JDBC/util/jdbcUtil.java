@@ -12,21 +12,18 @@ import java.util.Properties;
 public class jdbcUtil {
 	
 	private jdbcUtil()
-	{
-		
-	}
-
-		static
+	{}
+	static
 		{
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
 		public static Connection getConnection() throws SQLException, IOException
+		
 		{
 			FileInputStream f=new FileInputStream("C:\\Users\\HIMANSHU\\eclipse-workspace\\StudentManagementSystem\\src\\in\\JDBC\\util\\application.properties");
 			Properties p=new Properties();
@@ -35,20 +32,18 @@ public class jdbcUtil {
 			Connection connection=DriverManager.getConnection(p.getProperty("url"),p.getProperty("user"),p.getProperty("password"));
 			return connection;
 		}
-		public static void clenUp(Connection c,Statement s, ResultSet r) throws SQLException
-		{
-			if(c!=null)
-			{
-				c.close();
-			}
-			if(s!=null)
-			{
-				s.close();
-			}
-			if(r!=null)
-				r.close();
-		}
 		
-
-
+		public static void clenUp(Connection connection,Statement statement, ResultSet resultset) throws SQLException
+		{
+			if(connection!=null)
+			{
+				connection.close();
+			}
+			if(statement!=null)
+			{
+				statement.close();
+			}
+			if(resultset!=null)
+				resultset.close();
+		}
 }
