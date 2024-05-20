@@ -9,24 +9,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import in.student.dto.Student;
-import in.student.service.IStudentService;
-import in.student.servicefectory.StudentServiceFectory;
+import in.student.dao.IStudentDao;
+import in.student.dao.StudentDaoImpl;
+import in.student.model.Student;
+/**
+ * StudentManagementApp.java
+ * This servlet acts as a page controller for the application, handling all
+ * requests from the user.
+ * @email 
+ */
 
 @WebServlet("/controller/*")
 public class StudentManagementApp extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request,response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doProcess(request, response);
 	}
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		IStudentService stdService=StudentServiceFectory.getStudentService();
+		IStudentDao studentDao=new StudentDaoImpl();
 		
 		System.out.println("Request URL:: "+request.getRequestURI());
 		System.out.println("Path Info :: "+request.getPathInfo());
@@ -44,7 +47,7 @@ public class StudentManagementApp extends HttpServlet {
 					s.setAge(Integer.parseInt(age));
 					s.setAddress(address);
 			
-					String status=stdService.addStudent(s);
+					String status=studentDao.addStudent(s);
 					PrintWriter out = response.getWriter();
 
 					if (status.equals("success")) {
@@ -59,18 +62,18 @@ public class StudentManagementApp extends HttpServlet {
 		if(request.getRequestURI().endsWith("searchform"))
 		{
 			String sid=request.getParameter("sid");
-			Student s=stdService.searchStudent(Integer.parseInt(sid));
+			Student student=studentDao.searchStudent(Integer.parseInt(sid));
 			
 			PrintWriter out = response.getWriter();
-			if (s != null) {
+			if (student != null) {
 				out.println("<body>");
 				out.println("<br/><br/><br/>");
 				out.println("<center>");
 				out.println("<table border='1'>");
-				out.println("<tr><th>ID</th><td>" + s.getId() + "</td></tr>");
-				out.println("<tr><th>NAME</th><td>" + s.getName() + "</td></tr>");
-				out.println("<tr><th>AGE</th><td>" + s.getAge() + "</td></tr>");
-				out.println("<tr><th>AGE</th><td>" + s.getAddress() + "</td></tr>");
+				out.println("<tr><th>ID</th><td>" + student.getId() + "</td></tr>");
+				out.println("<tr><th>NAME</th><td>" + student.getName() + "</td></tr>");
+				out.println("<tr><th>AGE</th><td>" + student.getAge() + "</td></tr>");
+				out.println("<tr><th>AGE</th><td>" + student.getAddress() + "</td></tr>");
 				
 				out.println("</table>");
 				out.println("</center>");
@@ -84,7 +87,7 @@ public class StudentManagementApp extends HttpServlet {
 		
 		if (request.getRequestURI().endsWith("deleteform")) {
 			String sid = request.getParameter("sid");
-			String status = stdService.deleteStudent(Integer.parseInt(sid));
+			String status = studentDao.deleteStudent(Integer.parseInt(sid));
 
 			PrintWriter out = response.getWriter();
 			if (status.equals("success")) {
@@ -108,7 +111,7 @@ public class StudentManagementApp extends HttpServlet {
 		if (request.getRequestURI().endsWith("editform")) {
 			String sid = request.getParameter("sid");
 
-			Student s = stdService.searchStudent(Integer.parseInt(sid));
+			Student s = studentDao.searchStudent(Integer.parseInt(sid));
 			PrintWriter out = response.getWriter();
 			if (s != null) {
 				// display student records as a form data so it is editable
@@ -149,7 +152,7 @@ public class StudentManagementApp extends HttpServlet {
 			s.setAge(Integer.parseInt(sage));
 			s.setAddress(saddress);
 
-			String status = stdService.updateStudent(s);
+			String status = studentDao.updateStudent(s);
 			PrintWriter out = response.getWriter();
 
 			if (status.equals("success")) {

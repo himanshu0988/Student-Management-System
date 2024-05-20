@@ -1,6 +1,6 @@
 package in.student.dao;
 
-import in.student.dto.Student;
+import in.student.model.Student;
 
 public interface IStudentDao 
 {

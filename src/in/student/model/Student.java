@@ -1,9 +1,14 @@
-package in.student.dto;
+package in.student.model;
 
-import java.io.Serializable;
+/**
+ * Student.java
+ * This is a model class represents a Student entity
+ * @author Himanshu Kumar Singh
+ *
+ */
 
-public class Student implements Serializable
-{
+public class Student {
+	
 	private Integer id;
 	private String name;
 	private Integer age;
@@ -39,7 +44,4 @@ public class Student implements Serializable
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + ", age=" + age + ", address=" + address + "]";
 	}
-	
-	
-
 }
