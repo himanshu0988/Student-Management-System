@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-public class jdbcUtil {
+public class JdbcUtil {
 	
 	// restrict the object creation from outside of class
-	private jdbcUtil(){}
+	private JdbcUtil(){}
 	static {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");

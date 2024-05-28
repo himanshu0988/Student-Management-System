@@ -7,9 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import in.student.connection.jdbcUtil;
+import in.student.connection.JdbcUtil;
 import in.student.model.Student;
-
 /**
  * This DAO class provides CRUD database operations for the
  * table student in the database.
@@ -17,8 +16,7 @@ import in.student.model.Student;
  * @author Himanshu Kumar Singh
  *
  */
-
-public class StudentDaoImpl implements IStudentDao {
+public class StudentDao {
 	
 	Connection connection=null;
 	PreparedStatement pstm=null;
@@ -26,9 +24,8 @@ public class StudentDaoImpl implements IStudentDao {
 	Student student=null;
 	
 	public String addStudent(Student student) {
-		
 		try {
-			connection=connection=jdbcUtil.getConnection();
+			connection=connection=JdbcUtil.getConnection();
 			if(connection!=null){
 				String query="Insert into student (sid,`sname`,sage,`saddress`)values(?,?,?,?)";
 				pstm=connection.prepareStatement(query);
@@ -49,11 +46,9 @@ public class StudentDaoImpl implements IStudentDao {
 		return "failure";	
 	}
 
-	@Override
 	public Student searchStudent(Integer id) {
-		
 		try {
-			connection=connection=jdbcUtil.getConnection();
+			connection=connection=JdbcUtil.getConnection();
 			if(connection!=null){
 				String query="Select sid,sname,sage,saddress from student where sid=?";
 				pstm=connection.prepareStatement(query);
@@ -80,17 +75,15 @@ public class StudentDaoImpl implements IStudentDao {
 		return student;	
 	}
 
-	@Override
 	public String updateStudent(Student student) {
-			String sqlUpdateQuery = "update student set sname=?,sage=?,saddress=? where sid=?";
 			try {
-				connection=connection=jdbcUtil.getConnection();
+				String sqlUpdateQuery = "update student set sname=?,sage=?,saddress=? where sid=?";
+				connection=connection=JdbcUtil.getConnection();
 
 				if (connection != null)
 					pstm = connection.prepareStatement(sqlUpdateQuery);
-
+				
 				if (pstm != null) {
-
 					pstm.setString(1, student.getName());
 					pstm.setInt(2, student.getAge());
 					pstm.setString(3, student.getAddress());
@@ -107,10 +100,9 @@ public class StudentDaoImpl implements IStudentDao {
 			return "failure";
 	}
 
-	@Override
 	public String deleteStudent(Integer id) {
 		try {
-			connection=connection=jdbcUtil.getConnection();
+			connection=connection=JdbcUtil.getConnection();
 			if(connection!=null){
 				String query="delete from student where sid=?";
 				pstm=connection.prepareStatement(query);
