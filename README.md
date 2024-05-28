@@ -44,4 +44,13 @@ This web application is designed to manage student records using Java, Servlet, 
 - Navigate through the interface to add, update, delete, or view student information.
 
 ## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
 1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Create a new Pull Request.
+
+Feel free to customize this README according to your project's specific requirements and additional features
