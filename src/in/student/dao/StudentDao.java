@@ -17,7 +17,6 @@ import in.student.model.Student;
  *
  */
 public class StudentDao {
-	
 	Connection connection=null;
 	PreparedStatement pstm=null;
 	ResultSet resultset=null;
@@ -38,7 +37,7 @@ public class StudentDao {
 				
 				int rowAffected=pstm.executeUpdate();
 				if(rowAffected !=0)
-					return "success";
+				return "success";
 			}
 		  } catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -57,7 +56,7 @@ public class StudentDao {
 				pstm.setInt(1, id);
 				resultset=pstm.executeQuery();
 			}
-			if(resultset!=null){
+			if(resultset!=null)
 				if(resultset.next()){
 					student = new Student();
 					
@@ -67,8 +66,6 @@ public class StudentDao {
 					student.setAddress(resultset.getString(4));
 					return student;
 				}
-			}
-			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
@@ -90,9 +87,8 @@ public class StudentDao {
 					pstm.setInt(4, student.getId());
 
 					int rowAffected = pstm.executeUpdate();
-					if (rowAffected == 1) {
-						return "success";
-					}
+					if (rowAffected == 1) 
+					return "success";
 				}
 			} catch (SQLException | IOException e) {
 				e.printStackTrace();
@@ -104,16 +100,14 @@ public class StudentDao {
 		try {
 			connection=connection=JdbcUtil.getConnection();
 			if(connection!=null){
-				String query="delete from student where sid=?";
+				String query="Delete from student where sid=?";
 				pstm=connection.prepareStatement(query);
 			}
 			if(pstm!=null){
 				pstm.setInt(1, id);
-				
 				int rowAffected=pstm.executeUpdate();
-				if(rowAffected==1){
-					return "success";
-				}
+				if(rowAffected==1)
+				return "success";
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
